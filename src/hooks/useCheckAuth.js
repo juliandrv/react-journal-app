@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { firebaseAuth } from '../firebase/config';
 
 import { login, logout } from '../store/auth/authSlice';
+import { startLoadingNotes } from '../store/auth/thunks';
 
 export const useCheckAuth = () => {
   const { status } = useSelector((state) => state.auth);
@@ -21,6 +22,7 @@ export const useCheckAuth = () => {
         const { uid, email, displayName, photoURL } = user;
 
         dispatch(login({ uid, email, displayName, photoURL }));
+        dispatch(startLoadingNotes());
       },
       (error) => {
         console.error('Error checking authentication state:', error);

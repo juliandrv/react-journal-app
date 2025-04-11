@@ -6,15 +6,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import TurnedInNot from '@mui/icons-material/TurnedInNot';
-import Grid from '@mui/material/Grid';
+
+import { SidebarItem } from './SidebarItem';
 
 export const Sidebar = ({ drawerWidth = 240 }) => {
   const { displayName } = useSelector((state) => state.auth);
+  const { notes } = useSelector((state) => state.journal);
 
   return (
     <Box
@@ -41,21 +38,8 @@ export const Sidebar = ({ drawerWidth = 240 }) => {
         <Divider />
 
         <List>
-          {['Enero', 'Febrero', 'Marzo', 'Abril'].map((text) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <TurnedInNot />
-                </ListItemIcon>
-
-                <Grid container>
-                  <ListItemText primary={text} />
-                  <ListItemText
-                    secondary={'Lorem ipsum dolor sit amet.'}
-                  />
-                </Grid>
-              </ListItemButton>
-            </ListItem>
+          {notes.map((note) => (
+            <SidebarItem key={note.id} {...note} />
           ))}
         </List>
       </Drawer>
