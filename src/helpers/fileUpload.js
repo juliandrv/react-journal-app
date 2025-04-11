@@ -1,9 +1,8 @@
-// helpers/fileUpload.js
-
 export const fileUpload = async (file) => {
   const cloudUrl = 'https://api.cloudinary.com/v1_1/juliandrv/upload';
 
   const formData = new FormData();
+
   formData.append('upload_preset', 'react-journal');
   formData.append('file', file);
 
@@ -17,12 +16,10 @@ export const fileUpload = async (file) => {
 
     const cloudResp = await resp.json();
 
-    return {
-      secure_url: cloudResp.secure_url,
-      public_id: cloudResp.public_id,
-    };
+    return cloudResp.secure_url;
   } catch (error) {
-    console.error('Error uploading image', error);
+    console.log(error);
+
     return null;
   }
 };
